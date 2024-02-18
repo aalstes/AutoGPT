@@ -119,28 +119,13 @@ class ForgeAgent(Agent):
         multiple steps. Returning a request to continue in the step output, the user can then decide
         if they want the agent to continue or not.
         """
-        # An example that
+      
+        # Get the task details
+        task = await self.db.get_task(task_id)
+    
+        # Add a new step to the database
         step = await self.db.create_step(
             task_id=task_id, input=step_request, is_last=True
-        )
-
-        self.workspace.write(task_id=task_id, path="output.txt", data=b"Washington D.C")
-
-        await self.db.create_artifact(
-            task_id=task_id,
-            step_id=step.step_id,
-            file_name="output.txt",
-            relative_path="",
-            agent_created=True,
-        )
-
-        step.output = "Washington D.C"
-
-        LOG.info(
-            f"\t✅ Final Step completed: {step.step_id}. \n"
-            + f"Output should be placeholder text Washington D.C. You'll need to \n"
-            + f"modify execute_step to include LLM behavior. Follow the tutorial "
-            + f"if confused. "
         )
 
         return step
