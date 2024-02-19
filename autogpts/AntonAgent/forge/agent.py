@@ -8,7 +8,8 @@ from forge.sdk import (
     Task,
     TaskRequestBody,
     Workspace,
-    PromptEngine
+    PromptEngine,
+    chat_completion_request
 )
 
 LOG = ForgeLogger(__name__)
